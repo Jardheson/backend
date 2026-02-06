@@ -1,43 +1,45 @@
 const { Model, DataTypes } = require("sequelize");
 
-class ProductOption extends Model {
+class Review extends Model {
   static init(sequelize) {
     super.init(
       {
         product_id: {
           type: DataTypes.INTEGER,
-          allowNull: false,
           references: {
             model: "products",
             key: "id",
           },
         },
-        title: {
+        user_name: {
           type: DataTypes.STRING,
           allowNull: false,
         },
-        shape: {
-          type: DataTypes.ENUM("square", "circle"),
-          defaultValue: "square",
+        user_avatar: {
+          type: DataTypes.STRING,
+          allowNull: true,
         },
-        radius: {
+        rating: {
           type: DataTypes.INTEGER,
-          defaultValue: 0,
-        },
-        type: {
-          type: DataTypes.ENUM("text", "color"),
-          defaultValue: "text",
-        },
-        values: {
-          type: DataTypes.STRING,
           allowNull: false,
+          validate: {
+            min: 1,
+            max: 5,
+          },
+        },
+        comment: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },
+        status: {
+          type: DataTypes.ENUM("approved", "rejected", "pending"),
+          defaultValue: "pending",
         },
       },
       {
         sequelize,
-        modelName: "ProductOption",
-        tableName: "product_options",
-        timestamps: false,
+        modelName: "Review",
+        tableName: "reviews",
       },
     );
   }
@@ -47,4 +49,4 @@ class ProductOption extends Model {
   }
 }
 
-module.exports = ProductOption;
+module.exports = Review;

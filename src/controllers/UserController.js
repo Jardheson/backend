@@ -1,15 +1,12 @@
-const { User } = require('../models');
+const UserService = require("../services/UserService");
 
 class UserController {
   static async getById(req, res) {
     try {
-      const { id } = req.params;
-      const user = await User.findByPk(id, {
-        attributes: ['id', 'firstname', 'surname', 'email']
-      });
+      const user = await UserService.getById(req.params.id);
 
       if (!user) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
+        return res.status(404).json({ message: "Usuário não encontrado" });
       }
 
       return res.status(200).json(user);
@@ -20,19 +17,19 @@ class UserController {
 
   static async create(req, res) {
     try {
-      const { firstname, surname, email, password, confirmPassword } = req.body;
+      const { password, confirmPassword } = req.body;
 
       if (password !== confirmPassword) {
-        return res.status(400).json({ message: 'Senhas não conferem' });
+        return res.status(400).json({ message: "Senhas não conferem" });
       }
 
-      const user = await User.create({ firstname, surname, email, password });
+      const user = await UserService.create(req.body);
 
       return res.status(201).json({
         id: user.id,
         firstname: user.firstname,
         surname: user.surname,
-        email: user.email
+        email: user.email,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -41,18 +38,11 @@ class UserController {
 
   static async update(req, res) {
     try {
-      const { id } = req.params;
-      const { firstname, surname, email } = req.body;
-
-      const user = await User.findByPk(id);
+      const user = await UserService.update(req.params.id, req.body);
 
       if (!user) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
+        return res.status(404).json({ message: "Usuário não encontrado" });
       }
-
-      // TODO: Validar permissão (se o usuário logado é o mesmo do ID ou admin)
-
-      await user.update({ firstname, surname, email });
 
       return res.status(204).send();
     } catch (error) {
@@ -62,14 +52,11 @@ class UserController {
 
   static async delete(req, res) {
     try {
-      const { id } = req.params;
-      const user = await User.findByPk(id);
+      const success = await UserService.delete(req.params.id);
 
-      if (!user) {
-        return res.status(404).json({ message: 'Usuário não encontrado' });
+      if (!success) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
       }
-
-      await user.destroy();
 
       return res.status(204).send();
     } catch (error) {

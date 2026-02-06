@@ -1,5 +1,5 @@
-const { Category } = require('../models');
-const { Op } = require('sequelize');
+const { Category } = require("../models");
+const { Op } = require("sequelize");
 
 class CategoryController {
   static async search(req, res) {
@@ -19,11 +19,11 @@ class CategoryController {
       }
 
       if (fields) {
-        queryOptions.attributes = fields.split(',');
+        queryOptions.attributes = fields.split(",");
       }
 
       if (use_in_menu) {
-        queryOptions.where.use_in_menu = use_in_menu === 'true';
+        queryOptions.where.use_in_menu = use_in_menu === "true";
       }
 
       const { count, rows } = await Category.findAndCountAll(queryOptions);
@@ -32,7 +32,7 @@ class CategoryController {
         data: rows,
         total: count,
         limit,
-        page
+        page,
       });
     } catch (error) {
       return res.status(400).json({ message: error.message });
@@ -45,7 +45,7 @@ class CategoryController {
       const category = await Category.findByPk(id);
 
       if (!category) {
-        return res.status(404).json({ message: 'Categoria não encontrada' });
+        return res.status(404).json({ message: "Categoria não encontrada" });
       }
 
       return res.status(200).json(category);
@@ -71,7 +71,7 @@ class CategoryController {
 
       const category = await Category.findByPk(id);
       if (!category) {
-        return res.status(404).json({ message: 'Categoria não encontrada' });
+        return res.status(404).json({ message: "Categoria não encontrada" });
       }
 
       await category.update({ name, slug, use_in_menu });
@@ -86,7 +86,7 @@ class CategoryController {
       const { id } = req.params;
       const category = await Category.findByPk(id);
       if (!category) {
-        return res.status(404).json({ message: 'Categoria não encontrada' });
+        return res.status(404).json({ message: "Categoria não encontrada" });
       }
 
       await category.destroy();

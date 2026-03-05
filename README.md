@@ -1,111 +1,139 @@
-# 🔙 Backend - Digital Store API
+# 🔙 Backend API - Digital Store
 
-Este é o servidor backend da aplicação **Digital Store**, construído com Node.js, Express e Sequelize. Ele fornece uma API RESTful para gerenciamento de produtos, usuários, categorias e pedidos.
+> **RESTful API Service developed with Node.js, Express & Sequelize**
 
-## 🚀 Tecnologias
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
-*   **Node.js** (v16+)
-*   **Express**: Framework web rápido e minimalista.
-*   **Sequelize**: ORM baseado em promises para Node.js (suporta Postgres, MySQL, MariaDB, SQLite e MSSQL).
-*   **JWT (JSON Web Tokens)**: Para autenticação segura stateless.
-*   **Swagger**: Para documentação automática da API.
+## 📖 Sobre o Projeto
+
+Este diretório contém o servidor backend da aplicação **Digital Store**. Ele foi projetado para ser uma API robusta e escalável, responsável por gerenciar toda a lógica de negócios, autenticação e persistência de dados da plataforma de e-commerce.
+
+Embora o frontend atual tenha integração nativa com **Supabase**, este backend Node.js serve como uma alternativa completa e customizável, oferecendo controle total sobre a infraestrutura e regras de negócio.
 
 ---
 
-## 🛠️ Instalação e Setup
+## 🚀 Tecnologias Utilizadas
+
+O projeto foi construído utilizando um stack moderno e eficiente:
+
+* **[Node.js](https://nodejs.org/)**: Ambiente de execução JavaScript server-side.
+* **[Express](https://expressjs.com/)**: Framework web rápido, unopinionated e minimalista.
+* **[Sequelize](https://sequelize.org/)**: ORM (Object-Relational Mapper) poderoso baseada em Promises.
+* **[JWT](https://jwt.io/)**: Padrão para autenticação segura e stateless.
+* **[Swagger](https://swagger.io/)**: Ferramenta para design, construção e documentação da API.
+* **[Bcrypt](https://www.npmjs.com/package/bcrypt)**: Biblioteca para hash de senhas.
+
+---
+
+## ✨ Funcionalidades
+
+A API fornece endpoints para cobrir os principais requisitos do e-commerce:
+
+* **🔐 Autenticação & Autorização**:
+  * Registro e Login de usuários.
+  * Geração e validação de Tokens JWT.
+  * Middlewares de proteção de rotas.
+* **📦 Gestão de Produtos**:
+  * CRUD completo de produtos.
+  * Filtragem por categorias, preço e marca.
+  * Gestão de imagens e variações (cores/tamanhos).
+* **👤 Gestão de Usuários**:
+  * Perfil do usuário.
+  * Histórico de pedidos.
+* **🛒 Pedidos (Orders)**:
+  * Criação e processamento de pedidos.
+  * Atualização de status.
+
+---
+
+## 🛠️ Instalação e Configuração
+
+Siga os passos abaixo para rodar a API localmente:
 
 ### 1. Pré-requisitos
-Certifique-se de ter o [Node.js](https://nodejs.org/) instalado em sua máquina.
 
-### 2. Instalar Dependências
-Navegue até a pasta `backend` e execute:
+* Node.js (v16 ou superior)
+* Banco de Dados SQL (PostgreSQL, MySQL ou SQLite)
+
+### 2. Instalação
+
+Navegue até a pasta do backend e instale as dependências:
 
 ```bash
+cd backend
 npm install
 ```
 
-### 3. Configurar Variáveis de Ambiente
-Crie um arquivo `.env` na raiz da pasta `backend` (você pode copiar o `.env.example`):
+### 3. Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz da pasta `backend` baseando-se no exemplo:
 
 ```env
 # Server Config
 PORT=3000
 NODE_ENV=development
 
-# Database Config (Exemplo com MySQL/Postgres)
+# Database Config
 DB_HOST=localhost
-DB_USER=root
-DB_PASS=senha123
+DB_USER=seu_usuario
+DB_PASS=sua_senha
 DB_NAME=digital_store
-DB_DIALECT=mysql # ou postgres, sqlite
+DB_DIALECT=postgres # ou mysql, sqlite
 
-# Auth Config
-JWT_SECRET=sua_chave_secreta_super_segura
+# Auth Secret
+JWT_SECRET=sua_chave_secreta_aqui
 ```
 
-### 4. Executar o Servidor
+### 4. Executando o Servidor
 
-#### Modo de Desenvolvimento (com Nodemon)
+**Modo de Desenvolvimento (com Hot-Reload):**
+
 ```bash
 npm run dev
 ```
-O servidor iniciará em `http://localhost:3000`.
 
-#### Modo de Produção
+**Modo de Produção:**
+
 ```bash
 npm start
 ```
+
+O servidor estará rodando em: `http://localhost:3000`
 
 ---
 
 ## 📚 Documentação da API (Swagger)
 
-A documentação interativa da API está disponível automaticamente quando o servidor está rodando.
+A API possui uma documentação interativa completa gerada via Swagger.
 
-*   **URL da Documentação**: `http://localhost:3000/api-docs`
+👉 **Acesse:** `http://localhost:3000/api-docs`
 
-Lá você pode testar todos os endpoints, ver os schemas de requisição/resposta e entender os métodos de autenticação necessários.
+Lá você poderá:
 
----
-
-## 🗄️ Estrutura do Banco de Dados
-
-O projeto utiliza o **Sequelize** para modelagem de dados. Ao iniciar a aplicação em modo de desenvolvimento, o Sequelize tentará sincronizar as tabelas automaticamente (`sequelize.sync`).
-
-### Principais Tabelas
-*   **Users**: Usuários e administradores.
-*   **Products**: Catálogo de produtos.
-*   **Categories**: Categorias de produtos.
-*   **ProductImages**: Imagens associadas aos produtos.
-*   **ProductOptions**: Variações de produtos (cores, tamanhos).
+* Visualizar todos os endpoints disponíveis.
+* Testar requisições diretamente pelo navegador.
+* Ver os esquemas de dados (Models).
+* Entender os requisitos de autenticação (Bearer Token).
 
 ---
 
-## 🔐 Autenticação
+## 🗄️ Estrutura do Projeto
 
-A maioria das rotas de escrita (POST, PUT, DELETE) são protegidas e requerem um Token JWT.
-
-1.  Faça login na rota `/v1/auth/token` (ou crie um usuário).
-2.  Copie o `token` retornado.
-3.  Nas requisições protegidas, adicione o header:
-    ```
-    Authorization: Bearer SEU_TOKEN_AQUI
-    ```
-    *(No Swagger, clique no botão "Authorize" e cole o token)*.
-
----
-
-## 🧪 Estrutura de Pastas
+A arquitetura segue o padrão MVC (Model-View-Controller) adaptado para APIs:
 
 ```bash
 src/
-├── config/        # Configurações (Database, Swagger)
-├── controllers/   # Lógica de controle (Req/Res)
-├── middleware/    # Middlewares (Auth, Validações)
-├── models/        # Modelos do Sequelize
-├── routes/        # Definição de Rotas
-├── services/      # Regras de Negócio
-└── app.js         # Configuração do App Express
+├── 📂 config/        # Configurações de banco de dados e ferramentas
+├── 📂 controllers/   # Controladores (Lógica de entrada/saída das requisições)
+├── 📂 middleware/    # Middlewares (Auth, Validação, Erros)
+├── 📂 models/        # Definição das tabelas e relacionamentos (Sequelize)
+├── 📂 routes/        # Definição das rotas da API
+├── 📂 services/      # Regras de negócio complexas
+├── app.js            # Configuração principal do Express
+└── server.js         # Ponto de entrada do servidor
 ```
 
 ---
@@ -114,3 +142,4 @@ src/
 
 **Jardheson Oliveira**
 *Software Engineer*
+

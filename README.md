@@ -100,6 +100,33 @@ A maioria das rotas de escrita (POST, PUT, DELETE) são protegidas e requerem um
 
 ---
 
+## 🧪 Endpoints Principais
+
+### Autenticação
+- POST `/v1/user` - cria usuário (201)
+- POST `/v1/user/token` - autentica e retorna JWT (200)
+
+### Usuário
+- GET `/v1/user/:id` - busca usuário (200/404)
+- PUT `/v1/user/:id` - atualiza usuário (204/400/401/404)
+- DELETE `/v1/user/:id` - apaga usuário (204/401/404)
+
+### Categoria
+- GET `/v1/category/search` - lista categorias (200/400)
+- GET `/v1/category/:id` - busca categoria (200/404)
+- POST `/v1/category` - cria categoria (201/400/401)
+- PUT `/v1/category/:id` - atualiza categoria (204/400/401/404)
+- DELETE `/v1/category/:id` - apaga categoria (204/401/404)
+
+### Produto
+- GET `/v1/product/search` - lista produtos com filtros (200/400)
+- GET `/v1/product/:id` - busca produto (200/404)
+- POST `/v1/product` - cria produto (201/400/401)
+- PUT `/v1/product/:id` - atualiza produto (204/400/401/404)
+- DELETE `/v1/product/:id` - apaga produto (204/401/404)
+
+---
+
 ## 🧪 Estrutura de Pastas
 
 ```bash

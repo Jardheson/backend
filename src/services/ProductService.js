@@ -165,35 +165,66 @@ class ProductService {
     }
 
     if (images) {
-      await ProductImage.destroy({ where: { product_id: id } });
-      if (images.length > 0) {
-        const imagePromises = images.map((img) =>
-          ProductImage.create({
+      const existingImages = await ProductImage.findAll({ where: { product_id: id } });
+      const existingImageMap = new Map(existingImages.map((img) => [img.id, img]));
+
+      for (const img of images) {
+        if (img.id) {
+          const existing = existingImageMap.get(img.id);
+          if (!existing) continue;
+          if (img.deleted) {
+            await existing.destroy();
+            continue;
+          }
+          if (img.content) {
+            existing.path = img.content;
+            await existing.save();
+          }
+        } else if (img.content) {
+          await ProductImage.create({
             product_id: id,
             enabled: true,
-            path: img.content || img,
-          }),
-        );
-        await Promise.all(imagePromises);
+            path: img.content,
+          });
+        }
       }
     }
 
     if (options) {
-      await ProductOption.destroy({ where: { product_id: id } });
-      if (options.length > 0) {
-        const optionPromises = options.map((opt) =>
-          ProductOption.create({
+      const existingOptions = await ProductOption.findAll({ where: { product_id: id } });
+      const existingOptionMap = new Map(existingOptions.map((opt) => [opt.id, opt]));
+
+      for (const opt of options) {
+        if (opt.id) {
+          const existing = existingOptionMap.get(opt.id);
+          if (!existing) continue;
+          if (opt.deleted) {
+            await existing.destroy();
+            continue;
+          }
+          const updatedValues = {
+            title: opt.title || existing.title,
+            shape: opt.shape || existing.shape,
+            radius: opt.radius ? parseInt(opt.radius) : existing.radius,
+            type: opt.type || existing.type,
+            values:
+              opt.values !== undefined
+                ? Array.isArray(opt.values)
+                  ? opt.values.join(",")
+                  : opt.values
+                : existing.values,
+          };
+          await existing.update(updatedValues);
+        } else {
+          await ProductOption.create({
             product_id: id,
             title: opt.title,
             shape: opt.shape,
             radius: opt.radius ? parseInt(opt.radius) : 0,
             type: opt.type,
-            values: Array.isArray(opt.values)
-              ? opt.values.join(",")
-              : opt.values || "",
-          }),
-        );
-        await Promise.all(optionPromises);
+            values: Array.isArray(opt.values) ? opt.values.join(",") : opt.values || "",
+          });
+        }
       }
     }
 

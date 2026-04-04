@@ -131,12 +131,12 @@ A maioria das rotas de escrita (POST, PUT, DELETE) são protegidas e requerem um
 
 ```bash
 src/
-├── 📂 config/        # Configurações de banco de dados e ferramentas
-├── 📂 controllers/   # Controladores (Lógica de entrada/saída das requisições)
-├── 📂 middleware/    # Middlewares (Auth, Validação, Erros)
-├── 📂 models/        # Definição das tabelas e relacionamentos (Sequelize)
-├── 📂 routes/        # Definição das rotas da API
-├── 📂 services/      # Regras de negócio complexas
+├── config/        # Configurações de banco de dados e ferramentas
+├── controllers/   # Controladores (Lógica de entrada/saída das requisições)
+├── middleware/    # Middlewares (Auth, Validação, Erros)
+├── models/        # Definição das tabelas e relacionamentos (Sequelize)
+├── routes/        # Definição das rotas da API
+├── services/      # Regras de negócio complexas
 ├── app.js            # Configuração principal do Express
 └── server.js         # Ponto de entrada do servidor
 ```

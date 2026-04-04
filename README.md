@@ -1,8 +1,8 @@
-# 🔙 Backend - Digital Store API
+# Backend - Digital Store API
 
 Este é o servidor backend da aplicação **Digital Store**, construído com Node.js, Express e Sequelize. Ele fornece uma API RESTful para gerenciamento de produtos, usuários, categorias e pedidos.
 
-## 🚀 Tecnologias
+## Tecnologias
 
 *   **Node.js** (v16+)
 *   **Express**: Framework web rápido e minimalista.
@@ -12,7 +12,7 @@ Este é o servidor backend da aplicação **Digital Store**, construído com Nod
 
 ---
 
-## 🛠️ Instalação e Configuração
+## Instalação e Configuração
 
 Siga os passos abaixo para rodar a API localmente:
 
@@ -63,17 +63,17 @@ O servidor estará rodando em: `http://localhost:3000`
 
 ---
 
-## 📚 Documentação da API (Swagger)
+## Documentação da API (Swagger)
 
 A API possui uma documentação interativa completa gerada via Swagger.
 
-👉 **Acesse:** `http://localhost:3000/api-docs`
+**Acesse:** `http://localhost:3000/api-docs`
 
 Lá você pode testar todos os endpoints, ver os schemas de requisição/resposta e entender os métodos de autenticação necessários.
 
 ---
 
-## 🗄️ Estrutura do Banco de Dados
+## Estrutura do Banco de Dados
 
 O projeto utiliza o **Sequelize** para modelagem de dados. Ao iniciar a aplicação em modo de desenvolvimento, o Sequelize tentará sincronizar as tabelas automaticamente (`sequelize.sync`).
 
@@ -86,7 +86,7 @@ O projeto utiliza o **Sequelize** para modelagem de dados. Ao iniciar a aplicaç
 
 ---
 
-## 🔐 Autenticação
+## Autenticação
 
 A maioria das rotas de escrita (POST, PUT, DELETE) são protegidas e requerem um Token JWT.
 
@@ -100,7 +100,7 @@ A maioria das rotas de escrita (POST, PUT, DELETE) são protegidas e requerem um
 
 ---
 
-## 🧪 Endpoints Principais
+## Endpoints Principais
 
 ### Autenticação
 - POST `/v1/user` - cria usuário (201)
@@ -127,7 +127,7 @@ A maioria das rotas de escrita (POST, PUT, DELETE) são protegidas e requerem um
 
 ---
 
-## 🧪 Estrutura de Pastas
+## Estrutura de Pastas
 
 ```bash
 src/
@@ -143,7 +143,7 @@ src/
 
 ---
 
-## ✒️ Autor
+## Autor
 
 **Jardheson Oliveira**
 *Software Engineer*
